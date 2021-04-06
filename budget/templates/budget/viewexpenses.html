@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{%extends 'budget/base.html'%}
+
+{%block body_block%}
+
+<form method="post">
+    {% csrf_token%}
+    {{form.as_p}}
+    <input type="submit" value="search">
+</form>
+    <table class="table table-striped table-dark">
+    <thead>
+        <tr>
+            <th scope="col">slno</th>
+            <th scope="col">category</th>
+            <th scope="col">notes</th>
+            <th scope="col">amount</th>
+            <th scope="col">date</th>
+        </tr>
+    </thead>
+  <tbody>
+    {%for expens in expenses%}
+    <tr>
+        <td>{{expens.id}}</td>
+        <td>{{expens.category}}</td>
+        <td>{{expens.notes}}</td>
+        <td>{{expens.amount}}</td>
+        <td>{{expens.date}}</td>
+        <td><a href="{%url 'editexpens' expens.id%}" class="btn btn-outline-warning">Edit</a></td>
+        <td><a href="{%url 'deleteexpense' expens.id%}" class="btn btn-outline-danger">Delete</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+{%endblock%}
